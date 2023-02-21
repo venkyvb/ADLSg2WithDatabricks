@@ -1,5 +1,6 @@
 ### Overview
 Both Azure Synapse and Databricks can be configured to work with an external Hive metastore. Currently Azure Synapse supports Azure SQL or Azure MySQL as the external hive metastore. 
+
 **Note** - If you dont already use MySQL and are not able to set the `lower_case_table_names=2`, **please use Azure SQL**. If new Azure MySQL instances are provisioned, currently it is not possible to set this parameter (irrespective of the MySQL versions 5.7 or 8.0).
 
 ### Using Azure SQL as the external metastore
@@ -37,3 +38,18 @@ spark.sql("show databases").show()
 ```
 If the set-up is completed this should run successfully and list the set of databased under the hive metastore. (typically `default` would be displayed).
 
+##### Azure Databricks Set-up
+To use ADB with the external hive metastore, you would need to create a new ADB workspace, new Compute cluster. In the Spark config for the compute cluster please enter the following details -
+
+```
+spark.sql.hive.metastore.version <e.g - 2.3.9>
+spark.hadoop.javax.jdo.option.ConnectionUserName {{secrets/<scope>/<secretName>}}
+spark.hadoop.javax.jdo.option.ConnectionURL jdbc:sqlserver://<mssqlservername>.database.windows.net:1433;database=<hive metastore DB name>
+spark.hadoop.javax.jdo.option.ConnectionPassword {{secrets/<scope>/<secretName>}}
+spark.hadoop.javax.jdo.option.ConnectionDriverName com.microsoft.sqlserver.jdbc.SQLServerDriver
+spark.sql.hive.metastore.jars builtin
+```
+In addition please follow the [steps outlined](https://github.com/venkyvb/ADLSg2WithDatabricks/blob/main/AzureStorageAccessTest.ipynb) to allow ADB access to the ADLSg2 folders where the data is stored.
+
+**Note**
+When tables are created as MANAGED tables in the Databricks, they are created within the local DBFS folder tree (i.e. `dbfs:/user/hive/warehouse/...`). These cannot be used within Azure Synapse. If the requirement is to allow access to tables from both Azure Synapse and Databricks the table should be created as MANAGED tables within Synapse (or as UNMANAGED tables with explicit location using the `abfss://` path).
