@@ -4,7 +4,8 @@ Both Azure Synapse and Databricks can be configured to work with an external Hiv
 **Note** - If you dont already use MySQL and are not able to set the `lower_case_table_names=2`, **please use Azure SQL**. If new Azure MySQL instances are provisioned, currently it is not possible to set this parameter (irrespective of the MySQL versions 5.7 or 8.0).
 
 ### Using Azure SQL as the external metastore
-This [document](https://learn.microsoft.com/en-us/azure/databricks/data/metastores/external-hive-metastore) has a great summary of what needs to be done to use Azure SQL as the external hivemetastore.
+This [document](https://learn.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-external-metastore) and this [document](https://learn.microsoft.com/en-us/azure/databricks/data/metastores/external-hive-metastore) has a great summary of what needs to be done to use Azure SQL as the external hivemetastore.
+The rest of this document covers the specific findings and learnings uncovered as a part of the set-up process.
 
 #### Set-up scripts
 Note that to deploy the Hive metastore schema you can either use the hive schema tool (mentioned in the above doc) or directly run the SQL scripts which are available for the appropriate hive versions - 
