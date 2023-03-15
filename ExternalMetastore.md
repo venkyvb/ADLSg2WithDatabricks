@@ -49,6 +49,12 @@ spark.hadoop.javax.jdo.option.ConnectionURL jdbc:sqlserver://<mssqlservername>.d
 spark.hadoop.javax.jdo.option.ConnectionPassword {{secrets/<scope>/<secretName>}}
 spark.hadoop.javax.jdo.option.ConnectionDriverName com.microsoft.sqlserver.jdbc.SQLServerDriver
 spark.sql.hive.metastore.jars builtin
+
+fs.azure.account.oauth2.client.id.<storage_account>.dfs.core.windows.net <clientId>
+fs.azure.account.oauth.provider.type.<storage_account>.dfs.core.windows.net org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider
+fs.azure.account.auth.type.<storage_account>.dfs.core.windows.net OAuth
+fs.azure.account.oauth2.client.secret.<storage_account>.dfs.core.windows.net {{secrets/<scope>/<clientSecretKey>}}
+fs.azure.account.oauth2.client.endpoint.<storage_account>.dfs.core.windows.net https://login.microsoftonline.com/<tenantId>/oauth2/token
 ```
 In addition please follow the [steps outlined](https://github.com/venkyvb/ADLSg2WithDatabricks/blob/main/AzureStorageAccessTest.ipynb) to allow ADB access to the ADLSg2 folders where the data is stored.
 
