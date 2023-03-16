@@ -28,7 +28,7 @@ Note that all of the set-up is to be done at a workspace level. This will be bot
 {
     "conf":{
         "spark.sql.hive.metastore.version":"<hive-version-first-2-parts-only>",
-        "spark.hadoop.hive.synapse.externalmetastore.linkedservice.name":"<linked-service-name",
+        "spark.hadoop.hive.synapse.externalmetastore.linkedservice.name":"<linked-service-name>",
         "spark.sql.hive.metastore.jars":"/opt/hive-metastore/lib-<hive-version-first-2-parts-only>/*:/usr/hdp/current/hadoop-client/lib/*"
     }
 }
